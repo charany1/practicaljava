@@ -1,4 +1,4 @@
-package com.practicaljava.lesson26;
+package com.practicaljava.lesson32;
 
 import javax.ejb.ApplicationException;
 

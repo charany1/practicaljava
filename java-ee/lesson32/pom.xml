@@ -10,10 +10,10 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>lesson26</artifactId>
+    <artifactId>lesson32</artifactId>
     
     <packaging>ejb</packaging>
-    <name>Lesson 26: Overview Java EE components</name>
+    <name>Lesson 32: Overview of Enterprise Beans Role of an EJB Container Session beans. Message-Driven Beans</name>
 
     <properties>
         <deploy.artifact.path>${project.build.directory}/${project.build.finalName}.jar</deploy.artifact.path>

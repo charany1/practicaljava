@@ -1,4 +1,4 @@
-package com.practicaljava.lesson26;
+package com.practicaljava.lesson32;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -19,7 +19,7 @@ public class TradeOrderServiceTest {
         
         InitialContext initialContext = new InitialContext(properties);
 
-        tradeOrderService = (ITradeOrderService) initialContext.lookup("com.practicaljava.lesson26.ITradeOrderService");
+        tradeOrderService = (ITradeOrderService) initialContext.lookup("com.practicaljava.lesson32.ITradeOrderService");
     }
     
     @Test
