@@ -1,0 +1,35 @@
+.panel {
+    border: #505050 solid;
+    margin: 1em;
+    padding: 1em;
+}
+
+table {
+    background-color: white;
+    border: 5px solid #36393D;
+    color: #36393D;
+    border-collapse: collapse;
+}
+
+a.column-link {
+    color: inherit;
+    background-color: inherit;
+    font-style: normal;
+}
+
+thead {
+    background-color: #C3D9FF;    
+}
+
+col#middle {
+    background-color: #EEEEEE;
+}
+
+tr#odd {
+    background-color: #36393D;
+    color: white;
+}
+
+.user-name {
+    background: #EEEEEE;
+}
