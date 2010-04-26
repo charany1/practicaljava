@@ -1,0 +1,54 @@
+.header-fone {
+    background: #333333;
+}
+
+.header-content {
+    background: #E8FFAF;
+    padding: 1em;
+    width: 100%;
+    color: #844F20;
+}
+
+.header-title {
+    font-size: 16pt;
+    /*font-family: ;*/
+    padding: 1em;
+}
+
+.header-bottom-left-corner {
+    background: url(../images/header-left-corner.png) no-repeat bottom left;
+    float:left;
+    width: 32px;
+    height: 32px;
+}
+
+.header-bottom-right-corner {
+    background: url(../images/header-right-corner.png) no-repeat bottom right;
+    float: left;
+    width: 32px;
+    height: 32px;
+}
+
+.header-bottom {
+    float:left;
+    background: url(../images/header-bottom.png) repeat-x bottom;
+    height: 32px;
+    margin-right: -64px;
+    width: inherit;
+}
+
+.header-end {
+    float: none;
+}
+
+.header-logo {
+    background: url(../images/logo.png) top left no-repeat;
+    float:left;
+    width: 253px;
+    height: 94px;
+}
+
+.header-message {
+    padding-top: 30px;
+    height: 64px;
+}

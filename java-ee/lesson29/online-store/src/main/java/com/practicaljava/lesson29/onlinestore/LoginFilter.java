@@ -37,18 +37,21 @@ public class LoginFilter implements Filter {
         User user = (User) session.getAttribute("user");
 
         if (user == null) {
-            String requestURI = httpRequest.getRequestURI();
-            if (httpRequest.getQueryString() != null)
-                requestURI = requestURI + "?" + httpRequest.getQueryString();
+            user = new User(RoleType.ANONYMOUS);
+            session.setAttribute("user", user);
+        }
 
-            session.setAttribute("lastUnauthorisedPage", requestURI);
-            
-            httpRequest.getRequestDispatcher("/login.jsp").forward(request, response);
+        if (! isAllowed(user, httpRequest.getRequestURI())) {
+            httpRequest.getRequestDispatcher("/login.jspx").forward(request, response);
         } else {
             chain.doFilter(request, response);
         }
     }
 
     public void destroy() {
+    }
+
+    private boolean isAllowed(User user, String url) {
+        return true;
     }
 }

@@ -1,35 +1,52 @@
-.panel {
-    border: #505050 solid;
-    margin: 1em;
+.flash-message {
+    border: black solid;
     padding: 1em;
+    margin: 1em;
 }
 
-table {
-    background-color: white;
-    border: 5px solid #36393D;
-    color: #36393D;
-    border-collapse: collapse;
+.flash-error {
+    background: #A05050;
+    color: #EEEEEE;
+    padding: 1em;
+    margin: 1em;
+}
+
+body {
+    background-color: #FFFFFF;
+    padding: 0;
+    margin: 0;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+
 }
 
 a.column-link {
     color: inherit;
     background-color: inherit;
     font-style: normal;
+    text-decoration: none;
 }
 
-thead {
-    background-color: #C3D9FF;    
+a.column-link:hover {
+    background-color: #DB5535;
+    color: #FBEC87;
 }
 
-col#middle {
-    background-color: #EEEEEE;
+th {
+    background-color: #FBEC87;
+    color: #4E471F;
 }
+
+th:hover {
+    color: #FBEC87;
+    background-color: #4E471F;
+}
+
+th#middle {
+    color: #DB5535;
+}
+
 
 tr#odd {
-    background-color: #36393D;
-    color: white;
-}
-
-.user-name {
-    background: #EEEEEE;
+    background-color: #EAFEDB;
+    color: #4E471F;
 }
