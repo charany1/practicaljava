@@ -1,0 +1,6 @@
+syntax: glob
+*.iml
+*.jar
+*.swp
+.idea
+.DS_Store
