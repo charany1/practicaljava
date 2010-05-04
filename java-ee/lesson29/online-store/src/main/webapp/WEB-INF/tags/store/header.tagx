@@ -1,12 +1,9 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0" xmlns:c="http://java.sun.com/jsp/jstl/core">
     <jsp:directive.attribute name="text" required="true"/>
     
-    <head>
-        <link rel="stylesheet" type="text/css" href="css/header.css"/>
-    </head>
-
     <jsp:body>
         <div class="header-logo"></div>
         <div class="header-message">${text}</div>
+        <div class="header-clear"></div>
     </jsp:body>
 </jsp:root>

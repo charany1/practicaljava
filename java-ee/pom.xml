@@ -61,6 +61,12 @@
                         <skip>true</skip>
                     </configuration>
                 </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>dbunit-maven-plugin</artifactId>
+                    <version>1.0-beta-3</version>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
@@ -185,9 +191,55 @@
                                             <argument>--port</argument>
                                             <argument>${glassfish.domain.port}</argument>
                                             <argument>--user</argument>
-                                            <argument>${glassfish.domain.user}</argument>                                                                                        
+                                            <argument>${glassfish.domain.user}</argument>
                                             <argument>start-domain</argument>
                                             <argument>${glassfish.domain.name}</argument>
+                                        </arguments>
+                                    </configuration>
+                                </execution>
+                                <execution>
+                                    <id>glassfish-create-datasource</id>
+                                    <phase>pre-integration-test</phase>
+                                    <goals>
+                                        <goal>exec</goal>
+                                    </goals>
+                                    <configuration>
+                                        <executable>${glassfish.asadmin.path}</executable>
+                                        <commandlineArgs>--echo --port ${glassfish.domain.port} create-jdbc-connection-pool --datasourceclassname org.apache.derby.jdbc.ClientDataSource --restype javax.sql.DataSource --property portNumber=1527:password=APP:user=APP:serverName=localhost:databaseName=practicaljava:connectionAttributes=\;create\\=true practicaljava-pool</commandlineArgs>
+                                        <skip>${create.domain.skip}</skip>
+                                    </configuration>
+                                </execution>
+                                <execution>
+                                    <id>glassfish-create-datasource-resource</id>
+                                    <phase>pre-integration-test</phase>
+                                    <goals>
+                                        <goal>exec</goal>
+                                    </goals>
+                                    <configuration>
+                                        <executable>${glassfish.asadmin.path}</executable>
+                                        <arguments>
+                                            <argument>--echo</argument>
+                                            <argument>--port</argument>
+                                            <argument>${glassfish.domain.port}</argument>
+                                            <argument>create-jdbc-resource</argument>
+                                            <argument>--connectionpoolid</argument>
+                                            <argument>practicaljava-pool</argument>
+                                            <argument>jdbc/practicaljava</argument>
+                                        </arguments>
+                                        <skip>${create.domain.skip}</skip>
+                                    </configuration>
+                                </execution>
+                                <execution>
+                                    <id>glassfish-start-database</id>
+                                    <phase>pre-integration-test</phase>
+                                    <goals>
+                                        <goal>exec</goal>
+                                    </goals>
+                                    <configuration>
+                                        <executable>${glassfish.asadmin.path}</executable>
+                                        <arguments>
+                                            <argument>--echo</argument>
+                                            <argument>start-database</argument>
                                         </arguments>
                                     </configuration>
                                 </execution>
@@ -241,6 +293,12 @@
                 <systemPath>${glassfish.home.path}/glassfish/lib/javaee.jar</systemPath>
             </dependency>
 
+            <dependency>
+                <groupId>org.apache.derby</groupId>
+                <artifactId>derbyclient</artifactId>
+                <version>10.5.3.0_1</version>
+            </dependency>
+            
             <dependency>
                 <groupId>gf-client</groupId>
                 <artifactId>gf-client</artifactId>

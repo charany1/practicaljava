@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <ITEMS PRODUCTCODE="10000001" NAME="GoF" DESCRIPTION="Basic book with design patterns" PRICEINPOINTS="46"/>
+    <ITEMS PRODUCTCODE="10000002" NAME="Practical Java" DESCRIPTION="Java Tutorial Book" PRICEINPOINTS="58"/>
+    <ITEMS PRODUCTCODE="10000003" NAME="Silver fork" DESCRIPTION="Dinner desert special silver fork" PRICEINPOINTS="30"/>
+    <ITEMS PRODUCTCODE="10000004" NAME="Winter Wheels" DESCRIPTION="BMW wheels for winter" PRICEINPOINTS="150"/>
+
+    <USERS ID="teacher" REWARDPOINTS="140" ROLE="USER"/>
+    <USERS ID="guest" REWARDPOINTS="20" ROLE="USER"/>
+</dataset>

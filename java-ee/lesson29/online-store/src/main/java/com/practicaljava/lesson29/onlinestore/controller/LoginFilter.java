@@ -1,4 +1,7 @@
-package com.practicaljava.lesson29.onlinestore;
+package com.practicaljava.lesson29.onlinestore.controller;
+
+import com.practicaljava.lesson29.onlinestore.RoleType;
+import com.practicaljava.lesson29.onlinestore.model.User;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -26,14 +29,7 @@ public class LoginFilter implements Filter {
         }
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
-
-        if (httpRequest.getRequestURI().indexOf("login") != -1) {
-            chain.doFilter(request, response);
-            return;
-        }
-
         HttpSession session = httpRequest.getSession();
-
         User user = (User) session.getAttribute("user");
 
         if (user == null) {
@@ -41,8 +37,13 @@ public class LoginFilter implements Filter {
             session.setAttribute("user", user);
         }
 
+        if (httpRequest.getRequestURI().indexOf("login") != -1) {
+            chain.doFilter(request, response);
+            return;
+        }
+
         if (! isAllowed(user, httpRequest.getRequestURI())) {
-            httpRequest.getRequestDispatcher("/login.jspx").forward(request, response);
+            httpRequest.getRequestDispatcher("/view/login.jspx").forward(request, response);
         } else {
             chain.doFilter(request, response);
         }

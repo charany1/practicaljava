@@ -1,8 +1,8 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0" xmlns:c="http://java.sun.com/jsp/jstl/core">
-    <c:if test="${flashInfo != null}">
+    <c:if test="${sessionScope.flashInfo != null}">
         <div class="flash-message">
-            ${flashInfo}
+            ${sessionScope.flashInfo}
         </div>
-        <c:set var="flashInfo" scope="session" value="${null}"/>
+        <c:remove var="flashInfo" scope="session"/>
     </c:if>
 </jsp:root>

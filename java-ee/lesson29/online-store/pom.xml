@@ -20,9 +20,16 @@
     </properties>
 
     <dependencies>
+        <!--<dependency>-->
+            <!--<groupId>glassfish</groupId>-->
+            <!--<artifactId>javaee</artifactId>-->
+        <!--</dependency>-->
+
         <dependency>
-            <groupId>glassfish</groupId>
-            <artifactId>javaee</artifactId>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>6.0</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -60,6 +67,27 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>dbunit-maven-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.derby</groupId>
+                        <artifactId>derbyclient</artifactId>
+                        <version>10.5.3.0_1</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <url>jdbc:derby://localhost:1527/practicaljava</url>
+                    <driver>org.apache.derby.jdbc.ClientDriver</driver>
+                    <username>APP</username>
+                    <password>APP</password>
+                    <type>INSERT</type>
+                    <format>flat</format>
+                    <src>${basedir}/src/main/dbunit/data.xml</src>
+                </configuration>
             </plugin>
         </plugins>
     </build>

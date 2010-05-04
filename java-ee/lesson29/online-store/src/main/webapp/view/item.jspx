@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:jsp="http://java.sun.com/JSP/Page"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:store="urn:jsptagdir:/WEB-INF/tags/store"
+      xmlns:ui="urn:jsptagdir:/WEB-INF/tags/ui">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    <title>On-line store</title></head>
+<body>
+<jsp:useBean id="item" scope="request" type="com.practicaljava.lesson29.onlinestore.model.Item"/>
+
+<store:page>
+    <div class="note">
+        <p>${item.name}</p>
+        <div class="note">${item.description}</div>
+        <p>Price: ${item.priceInPoints}</p>
+    </div>
+
+    <c:url var="url" value="add">
+        <c:param name="productCode">${item.productCode}</c:param>
+    </c:url>
+
+    <ui:button url="${url}">Add to cart</ui:button>
+</store:page>
+</body>
+</html>

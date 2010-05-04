@@ -1,9 +1,26 @@
-package com.practicaljava.lesson29.onlinestore;
+package com.practicaljava.lesson29.onlinestore.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import java.io.Serializable;
 
+@Entity
+@Table(name = "ITEMS")
+@NamedQueries({
+    @NamedQuery(name = "Item.all", query = "select i from Item i"),
+    @NamedQuery(name = "Item.byCode", query = "select i from Item i where i.productCode = :productCode")
+})
 public class Item implements Serializable {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long productCode;
+
     private String name;
     private String description;
     private Integer priceInPoints;
@@ -13,6 +30,9 @@ public class Item implements Serializable {
         this.name = name;
         this.description = description;
         this.priceInPoints = priceInPoints;
+    }
+
+    public Item() {
     }
 
     public Long getProductCode() {

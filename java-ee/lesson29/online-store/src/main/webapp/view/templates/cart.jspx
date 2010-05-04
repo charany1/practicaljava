@@ -1,0 +1,27 @@
+<jsp:root xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:store="urn:jsptagdir:/WEB-INF/tags/store"
+          xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.0">
+    <jsp:useBean id="user" scope="session" type="com.practicaljava.lesson29.onlinestore.model.User"/>
+
+    <store:panel top="Your items">
+        <c:choose>
+            <c:when test="${user.cartItems.size() > 0}">
+                <c:set var="totalPrice">${0}</c:set>
+
+                <c:forEach var="item" items="${user.cartItems}" varStatus="loop">
+                    <c:set var="itemTotalPrice">${item.value * item.key.priceInPoints}</c:set>
+
+                    <p>${item.key.name}: ${item.value} (${itemTotalPrice})</p>
+
+                    <c:set var="totalPrice">${totalPrice + itemTotalPrice}</c:set>
+                </c:forEach>
+
+                <p>Total price: <b>${totalPrice}</b></p>
+            </c:when>
+            <c:otherwise>
+                <p>Your cart is empty</p>
+            </c:otherwise>
+        </c:choose>
+    </store:panel>
+</jsp:root>
