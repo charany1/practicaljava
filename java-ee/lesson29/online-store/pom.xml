@@ -54,6 +54,7 @@
     </dependencies>
 
     <build>
+        <finalName>online-store</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>

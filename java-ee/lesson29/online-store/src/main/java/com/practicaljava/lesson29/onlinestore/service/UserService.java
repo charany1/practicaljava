@@ -13,6 +13,10 @@ public class UserService {
     @PersistenceContext(unitName = "online-shop")
     private EntityManager entityManager;
 
+    public void addUser(User user) {
+        entityManager.persist(user);
+    }
+    
     public User userById(String id) {
         try {
             return (User) entityManager.createNamedQuery("User.byId").

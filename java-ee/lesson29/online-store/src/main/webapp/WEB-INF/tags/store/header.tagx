@@ -4,6 +4,6 @@
     <jsp:body>
         <div class="header-logo"></div>
         <div class="header-message">${text}</div>
-        <div class="header-clear"></div>
+        <div class="clear"></div>
     </jsp:body>
 </jsp:root>

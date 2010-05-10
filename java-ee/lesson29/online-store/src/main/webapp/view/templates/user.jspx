@@ -4,8 +4,6 @@
           xmlns:only="urn:jsptagdir:/WEB-INF/tags/only"
           xmlns:ui="urn:jsptagdir:/WEB-INF/tags/ui"
           xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.0">
-    <jsp:useBean id="user" scope="session" type="com.practicaljava.lesson29.onlinestore.model.User"/>
-
     <only:anonymous>
         <store:panel top="Login">
             You are not logged in. <ui:button url="login">Log in</ui:button>
@@ -14,7 +12,7 @@
 
     <only:user>
         <store:panel top="Welcome">
-            ${user.id}
+            ${pageContext.request.userPrincipal.name}
         </store:panel>
     </only:user>
 </jsp:root>

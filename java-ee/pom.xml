@@ -229,6 +229,35 @@
                                         <skip>${create.domain.skip}</skip>
                                     </configuration>
                                 </execution>
+
+                                <!--
+                                Create authentication realm
+
+                                http://docs.sun.com/app/docs/doc/819-3658/ablpc?a=view
+                                http://docs.sun.com/app/docs/doc/820-4497/create-auth-realm-1?l=ru&a=view
+                                -->
+                                <execution>
+                                    <id>glassfish-create-jdbc-realm</id>
+                                    <phase>pre-integration-test</phase>
+                                    <goals>
+                                        <goal>exec</goal>
+                                    </goals>
+                                    <configuration>
+                                        <executable>${glassfish.asadmin.path}</executable>
+                                        <arguments>
+                                            <argument>--echo</argument>
+                                            <argument>--port</argument>
+                                            <argument>${glassfish.domain.port}</argument>
+                                            <argument>create-auth-realm</argument>
+                                            <argument>--classname</argument>
+                                            <argument>com.sun.enterprise.security.auth.realm.jdbc.JDBCRealm</argument>
+                                            <argument>--property</argument>
+                                            <argument>datasource-jndi=jdbc/practicaljava:user-table=USERS:user-name-column=ID:password-column=PASSWORD:group-table=USER_ROLES:group-name-column=ROLES:jaas-context=jdbcRealm:digest-algorithm=none:assign-groups=USER,ADMIN</argument>
+                                            <argument>databaseRealm</argument>
+                                        </arguments>
+                                        <skip>${create.domain.skip}</skip>
+                                    </configuration>
+                                </execution>
                                 <execution>
                                     <id>glassfish-start-database</id>
                                     <phase>pre-integration-test</phase>

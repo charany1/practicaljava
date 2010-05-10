@@ -1,13 +1,17 @@
 package com.practicaljava.lesson29.onlinestore.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Table(name = "ITEMS")
@@ -24,6 +28,9 @@ public class Item implements Serializable {
     private String name;
     private String description;
     private Integer priceInPoints;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "item")
+    private Collection<Review> reviews = new ArrayList<Review>();
 
     public Item(Long productCode, String name, String description, Integer priceInPoints) {
         this.productCode = productCode;
@@ -61,6 +68,14 @@ public class Item implements Serializable {
 
     public Integer getPriceInPoints() {
         return priceInPoints;
+    }
+
+    public Collection<Review> getReviews() {
+        return reviews;
+    }
+
+    public void addReview(User user, Integer score, String text) {
+        reviews.add(new Review(user, this, score, text));
     }
 
     public void setPriceInPoints(Integer priceInPoints) {

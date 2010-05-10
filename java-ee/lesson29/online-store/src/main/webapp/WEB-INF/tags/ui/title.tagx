@@ -1,5 +1,5 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0" xmlns:c="http://java.sun.com/jsp/jstl/core">
-    <c:if test='${pageContext.request.getUserPrincipal() == null}'>
+    <div class="title">
         <jsp:doBody/>
-    </c:if>
+    </div>
 </jsp:root>

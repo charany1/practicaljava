@@ -2,8 +2,8 @@ package com.practicaljava.lesson29.onlinestore.controller;
 
 import com.practicaljava.lesson29.onlinestore.Message;
 import com.practicaljava.lesson29.onlinestore.RequestParameters;
+import com.practicaljava.lesson29.onlinestore.model.Cart;
 import com.practicaljava.lesson29.onlinestore.model.Item;
-import com.practicaljava.lesson29.onlinestore.model.User;
 import com.practicaljava.lesson29.onlinestore.service.ItemService;
 
 import javax.ejb.EJB;
@@ -14,15 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns={"/add"})
+@WebServlet("/addItem")
 public class AddItemToCart extends HttpServlet {
 
     @EJB
     private ItemService itemService;
 
     @Override
-    protected void service(HttpServletRequest request, HttpServletResponse response)
-        throws IOException, ServletException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException,
+                                                                                          ServletException {
 
         Long productCode = RequestParameters.getLong(request, "productCode");
 
@@ -40,8 +40,8 @@ public class AddItemToCart extends HttpServlet {
             return;
         }
 
-        User user = (User) request.getSession().getAttribute("user");
-        user.addItem(item);
+        Cart cart = (Cart) request.getSession().getAttribute("cart");
+        cart.addItem(item);
 
         Message.setInfoMessage(request, "Item '" + item.getName() + "' was added to cart");
         response.sendRedirect("items");

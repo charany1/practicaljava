@@ -3,14 +3,11 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:message="urn:jsptagdir:/WEB-INF/tags/message"
       xmlns:store="urn:jsptagdir:/WEB-INF/tags/store">
-<head>
-    <title>On-line store: select items</title>
-</head>
-
 <body>
-<jsp:useBean id="items" scope="request" type="java.util.List"/>
 
-<store:page>
+<store:page pageTitle="Select items">
+    <jsp:useBean id="items" scope="request" type="java.util.List"/>
+
     <message:info/>
     <message:error/>
 

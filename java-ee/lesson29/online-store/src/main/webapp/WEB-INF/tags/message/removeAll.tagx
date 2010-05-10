@@ -4,9 +4,7 @@
     xmlns:c="http://java.sun.com/jsp/jstl/core"
     version="2.0">
 
-    <c:if test="${sessionScope.flashInfo != null}">
-        <div class="flash-message">
-            ${sessionScope.flashInfo}
-        </div>
-    </c:if>
+    <c:remove var="flashError" scope="session"/>
+    <c:remove var="flashErrors" scope="session"/>
+    <c:remove var="flashInfo" scope="session"/>
 </jsp:root>

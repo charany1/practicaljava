@@ -2,17 +2,20 @@ package com.practicaljava.lesson29.onlinestore.model;
 
 import com.practicaljava.lesson29.onlinestore.RoleType;
 
+import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "USERS")
@@ -24,17 +27,20 @@ public class User implements Serializable {
     private String id = "guest";
     private Integer rewardPoints = 0;
 
-    @Enumerated(value = EnumType.STRING)
-    private RoleType role = RoleType.ANONYMOUS;
+    private String password;
 
-    @Transient // TODO probably it is a good idea to save cart
-    private Map<Item, Integer> cartItems = new HashMap<Item, Integer>();
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
+    private Set<RoleType> roles = new HashSet<RoleType>();
+
+    private String address;
+
+    private String email;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Collection<Review> reviews;
 
     public User() {
-    }
-
-    public User(RoleType role) {
-        this.role = role;
     }
 
     public String getId() {
@@ -45,6 +51,30 @@ public class User implements Serializable {
         this.id = id;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public Integer getRewardPoints() {
         return rewardPoints;
     }
@@ -53,28 +83,7 @@ public class User implements Serializable {
         this.rewardPoints = rewardPoints;
     }
 
-    public Map<Item, Integer> getCartItems() {
-        return cartItems;
-    }
-
-    public void addItem(Item item) {
-        Integer itemCount = cartItems.get(item);
-
-        if (itemCount == null)
-            itemCount = 0;
-
-        cartItems.put(item, itemCount + 1);
-    }
-
-    public Integer getCartSize() {
-        return cartItems.size();
-    }
-
-    public RoleType getRole() {
-        return role;
-    }
-
-    public void setRole(RoleType role) {
-        this.role = role;
+    public void addRole(RoleType role) {
+        roles.add(role);
     }
 }

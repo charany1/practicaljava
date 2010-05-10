@@ -18,6 +18,10 @@ public class ItemService {
         entityManager.persist(item);
     }
 
+    public void updateItem(Item item) {
+        entityManager.merge(item);
+    }
+
     public Item itemByCode(Long productCode) {
         try {
             return (Item) entityManager.createNamedQuery("Item.byCode").

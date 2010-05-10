@@ -13,15 +13,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns={"/item"})
+@WebServlet("/item")
 public class ViewItem extends HttpServlet {
 
     @EJB
     private ItemService itemService;
     
     @Override
-    protected void service(HttpServletRequest request, HttpServletResponse response) throws IOException,
-                                                                                            ServletException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException,
+                                                                                          ServletException {
         Long productCode = RequestParameters.getLong(request, "productCode");
 
         if (productCode == null) {
