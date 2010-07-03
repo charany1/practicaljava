@@ -67,6 +67,7 @@
 
                         <dataSourceName>practicaljava-dbconnection-pool</dataSourceName>
                         <jdbcResourceName>jdbc/practicaljava</jdbcResourceName>
+                        <authRealmName>databaseRealm</authRealmName>
 
                         <usersTable>USERS</usersTable>
                         <userNameColumn>ID</userNameColumn>
