@@ -1,0 +1,54 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:message="urn:jsptagdir:/WEB-INF/tags/message"
+      xmlns:jsp="http://java.sun.com/JSP/Page"
+      xmlns:store="urn:jsptagdir:/WEB-INF/tags/store"
+      xmlns:ui="urn:jsptagdir:/WEB-INF/tags/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<body>
+<store:page panelBody="" pageTitle="Registration">
+
+    <ui:title>Registration</ui:title>
+
+    <message:error/>
+    
+    <form action="registration" method="post" class="form-panel">
+        <fieldset>
+            <ol>
+                <li>
+                    <label for="userId">User id</label>
+                    <input id="userId" name="userId" maxlength="100" value="${userId}"/>
+                    <message:error id="userId"/>
+                </li>
+                <li>
+                    <label for="password">Password</label>
+                    <input id="password" type="password" name="password" maxlength="100" value="${password}"/>
+                    <message:error id="password"/>
+                </li>
+                <li>
+                    <label for="confirmPassword">Confirm password</label>
+                    <input id="confirmPassword" type="password" name="confirmPassword" maxlength="100" value="${confirmPassword}"/>
+                    <message:error id="confirmPassword"/>
+                </li>
+                <li>
+                    <label for="email">Email</label>
+                    <input id="email" name="email" maxlength="100" value="${email}"/>
+                    <message:error id="email"/>
+                </li>
+                <li>
+                    <label for="address">Address</label>
+                    <textarea id="address" rows="5" cols="50" name="address">${address}</textarea>
+                    <message:error id="address"/>
+                </li>
+                <li>
+                    <ui:submitButton value="Register"/>
+                </li>
+            </ol>
+        </fieldset>
+    </form>
+    <p>
+        <ui:button url="items">Back</ui:button> to store
+    </p>
+</store:page>
+
+</body>
+</html>

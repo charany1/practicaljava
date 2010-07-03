@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+           version="3.0">
+
+    <welcome-file-list>
+        <welcome-file>/view/index.jspx</welcome-file>
+    </welcome-file-list>
+
+    <security-role>
+        <description>Regular user of the site</description>
+        <role-name>USER</role-name>
+    </security-role>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>User only</web-resource-name>
+            <url-pattern>/addReview</url-pattern>
+            <url-pattern>/checkout</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>USER</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <listener>
+        <description>
+            Listens for session creation to inject 'cart' bean to every new session.
+        </description>
+        <listener-class>com.practicaljava.lesson29.onlinestore.controller.SessionListener</listener-class>
+    </listener>
+
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>databaseRealm</realm-name>
+        <form-login-config>
+            <form-login-page>/login</form-login-page>
+            <form-error-page>/login?error</form-error-page>
+        </form-login-config>
+    </login-config>
+</web-app>

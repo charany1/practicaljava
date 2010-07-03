@@ -1,0 +1,46 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:message="urn:jsptagdir:/WEB-INF/tags/message"
+      xmlns:jsp="http://java.sun.com/JSP/Page"
+      xmlns:store="urn:jsptagdir:/WEB-INF/tags/store"
+      xmlns:ui="urn:jsptagdir:/WEB-INF/tags/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<body>
+
+<store:page pageTitle="Login">
+    <jsp:attribute name="panelBody"/>
+
+    <ui:title>Authentication</ui:title>
+    
+    <message:error/>
+
+    <div class="form-panel">
+        <form action="j_security_check" method="post">
+            <fieldset>
+                <ol>
+                    <li>
+                        <label for="id">Id</label>
+                        <input id="id" name="j_username" value=""/>
+                    </li>
+                    <li>
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="j_password" value=""/>
+                    </li>
+                    <li>
+                        <ui:submitButton value="Login"/>
+                    </li>
+                </ol>
+            </fieldset>
+        </form>
+    </div>
+
+    <p>
+        Do not have an account? Click <ui:button url="registration">Register</ui:button>
+    </p>
+
+    <p>
+        <ui:button url="items">Back</ui:button> to store
+    </p>
+</store:page>
+
+</body>
+</html>

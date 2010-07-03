@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.practicaljava</groupId>
+        <artifactId>examples</artifactId>
+        <version>1.0</version>
+    </parent>
+
+    <artifactId>javaee-examples</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0</version>
+    <name>Practical Java. Java EE Examples</name>
+
+    <modules>
+        <module>lesson29</module>
+        <module>lesson32</module>
+    </modules>
+
+    <properties>
+        <glassfish.home.path>${user.home}/glassfishv3</glassfish.home.path>
+
+        <!--
+        Default artifact extension.
+        It is strange that maven doesn't expose extension property depending on the 'packaging' value.
+        So we will set this property in the child pom's in case the final artifact doesn't have the 'jar' extension.
+        -->
+        <artifact.extension>jar</artifact.extension>
+    </properties>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-ejb-plugin</artifactId>
+                    <configuration>
+                        <ejbVersion>3.1</ejbVersion>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <configuration>
+                        <useFile>false</useFile>
+                        <skip>true</skip>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>dbunit-maven-plugin</artifactId>
+                    <version>1.0-beta-3</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>com.practicaljava.maven.plugin</groupId>
+                    <artifactId>gf-plugin</artifactId>
+                    <configuration>
+                        <glassFishHome>${glassfish.home.path}</glassFishHome>
+                        <domainName>practicaljava</domainName>
+                        <domainUser>practicaljava</domainUser>
+                        <domainPort>5000</domainPort>
+                        <domainOrbPort>3720</domainOrbPort>
+
+                        <dataSourceName>practicaljava-dbconnection-pool</dataSourceName>
+                        <jdbcResourceName>jdbc/practicaljava</jdbcResourceName>
+
+                        <usersTable>USERS</usersTable>
+                        <userNameColumn>ID</userNameColumn>
+                        <userPasswordColumn>PASSWORD</userPasswordColumn>
+                        <rolesTable>USER_ROLES</rolesTable>
+                        <roleColumn>ROLES</roleColumn>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>glassfish</id>
+            <build>
+            </build>
+        </profile>
+        <!--Turn on tests and bind them to integration-test phase-->
+        <profile>
+            <id>IT</id>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <artifactId>maven-surefire-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <phase>integration-test</phase>
+                                    <goals>
+                                        <goal>test</goal>
+                                    </goals>
+                                    <configuration>
+                                        <skip>false</skip>
+
+                                        <!--<systemProperties>-->
+                                        <!--<name>org.omg.CORBA.ORBInitialPort</name>-->
+                                        <!--<value>"${domain.orbport}"</value>-->
+                                        <!--</systemProperties>-->
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>                        
+                    </plugins>
+                </pluginManagement>
+            </build>
+
+            <dependencies>
+                <dependency>
+                    <groupId>gf-client</groupId>
+                    <artifactId>gf-client</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <!--Use GLASSFISH_HOME property if set to specify GlassFish server home location-->
+        <profile>
+            <id>glassfish-env-path</id>
+            <activation>
+                <property>
+                    <name>env.GLASSFISH_HOME</name>
+                </property>
+            </activation>
+
+            <properties>
+                <glassfish.home.path>${env.GLASSFISH_HOME}</glassfish.home.path>
+            </properties>
+        </profile>
+    </profiles>    
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>glassfish</groupId>
+                <artifactId>javaee</artifactId>
+                <version>6.0</version>
+                <scope>system</scope>
+                <systemPath>${glassfish.home.path}/glassfish/lib/javaee.jar</systemPath>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.derby</groupId>
+                <artifactId>derbyclient</artifactId>
+                <version>10.5.3.0_1</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>gf-client</groupId>
+                <artifactId>gf-client</artifactId>
+                <version>3.0</version>
+                <scope>system</scope>
+                <systemPath>${glassfish.home.path}/glassfish/modules/gf-client.jar</systemPath>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
