@@ -11,8 +11,8 @@
     </parent>
 
     <artifactId>javaee-examples</artifactId>
+    
     <packaging>pom</packaging>
-    <version>1.0</version>
     <name>Practical Java. Java EE Examples</name>
 
     <modules>

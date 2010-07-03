@@ -6,13 +6,15 @@
 
     <groupId>com.practicaljava</groupId>
     <artifactId>examples</artifactId>
-    <packaging>pom</packaging>
     <version>1.0</version>
+    
+    <packaging>pom</packaging>
     <name>Practical Java</name>
 
     <modules>
+        <module>maven-plugins</module>        
         <module>java-ee</module>
-        <module>maven-plugins</module>
+        <module>java-se</module>
     </modules>
 
     <build>
