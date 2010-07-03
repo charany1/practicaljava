@@ -124,7 +124,7 @@ for technical details
             <arg value="com.sun.enterprise.security.auth.realm.jdbc.JDBCRealm"/>
             <arg value="--property"/>
             <arg value="datasource-jndi=jdbc/practicaljava:user-table=${usersTable}:user-name-column=${userNameColumn}:password-column=${userPasswordColumn}:group-table=${rolesTable}:group-name-column=${roleColumn}:jaas-context=jdbcRealm:digest-algorithm=none:assign-groups=USER,ADMIN"/>
-            <arg value="databaseRealm"/>
+            <arg value="${authRealmName}"/>
         </exec>
     </target>
 

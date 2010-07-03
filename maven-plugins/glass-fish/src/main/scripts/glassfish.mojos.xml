@@ -222,6 +222,12 @@ for technical details
                     <description>Domain port</description>
                 </parameter>
                 <parameter>
+                    <property>authRealmName</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>Name of the authentication realm to create</description>
+                </parameter>
+                <parameter>
                     <property>usersTable</property>
                     <required>true</required>
                     <type>java.lang.String</type>
