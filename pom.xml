@@ -12,6 +12,7 @@
 
     <modules>
         <module>java-ee</module>
+        <module>maven-plugins</module>
     </modules>
 
     <build>

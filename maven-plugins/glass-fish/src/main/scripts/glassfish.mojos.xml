@@ -1,0 +1,352 @@
+<!--
+Please refer to
+    http://maven.apache.org/guides/plugin/guide-ant-plugin-development.html
+for technical details
+-->
+<pluginMetadata>
+    <mojos>
+        <mojo>
+            <goal>create-domain</goal>
+            <call>create-domain</call>
+            <description>Creates GlassFish domain</description>
+            <parameters>
+                <parameter>
+                    <property>glassFishHome</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>GlassFish install directory</description>
+                </parameter>
+                <parameter>
+                    <property>domainName</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>Name of the domain to create</description>
+                </parameter>
+                <parameter>
+                    <property>domainUser</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>User name to access to domain</description>
+                </parameter>
+                <parameter>
+                    <property>domainPort</property>
+                    <required>true</required>
+                    <type>java.lang.Integer</type>
+                    <description>Domain port</description>
+                </parameter>
+                <parameter>
+                    <property>domainOrbPort</property>
+                    <required>true</required>
+                    <type>java.lang.Integer</type>
+                    <description>Domain orb port to use to access remote beans</description>
+                </parameter>
+            </parameters>
+        </mojo>
+        <mojo>
+            <goal>delete-domain</goal>
+            <call>delete-domain</call>
+            <description>Deletes GlassFish domain</description>
+            <parameters>
+                <parameter>
+                    <property>glassFishHome</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>GlassFish install directory</description>
+                </parameter>
+                <parameter>
+                    <property>domainPort</property>
+                    <required>true</required>
+                    <type>java.lang.Integer</type>
+                    <description>Domain port to use to stop domain before deletion</description>
+                </parameter>
+                <parameter>
+                    <property>domainName</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>Name of the domain to delete</description>
+                </parameter>
+            </parameters>
+        </mojo>
+        <mojo>
+            <goal>start-domain</goal>
+            <call>start-domain</call>
+            <description>Starts GlassFish domain</description>
+            <parameters>
+                <parameter>
+                    <property>glassFishHome</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>GlassFish install directory</description>
+                </parameter>
+                <parameter>
+                    <property>domainName</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>Name of the domain</description>
+                </parameter>
+                <parameter>
+                    <property>domainUser</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>User name to access to domain</description>
+                </parameter>
+                <parameter>
+                    <property>domainPort</property>
+                    <required>true</required>
+                    <type>java.lang.Integer</type>
+                    <description>Domain port</description>
+                </parameter>
+            </parameters>
+        </mojo>
+        <mojo>
+            <goal>stop-domain</goal>
+            <call>stop-domain</call>
+            <description>Stops GlassFish domain</description>
+            <parameters>
+                <parameter>
+                    <property>glassFishHome</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>GlassFish install directory</description>
+                </parameter>
+                <parameter>
+                    <property>domainName</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>Name of the domain</description>
+                </parameter>
+                <parameter>
+                    <property>domainUser</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>User name to access to domain</description>
+                </parameter>
+                <parameter>
+                    <property>domainPort</property>
+                    <required>true</required>
+                    <type>java.lang.Integer</type>
+                    <description>Domain port</description>
+                </parameter>
+            </parameters>
+        </mojo>
+        <mojo>
+            <goal>create-data-source</goal>
+            <call>create-data-source</call>
+            <description>Creates data source</description>
+            <parameters>
+                <parameter>
+                    <property>glassFishHome</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>GlassFish install directory</description>
+                </parameter>
+                <parameter>
+                    <property>domainPort</property>
+                    <required>true</required>
+                    <type>java.lang.Integer</type>
+                    <description>Domain port</description>
+                </parameter>
+                <parameter>
+                    <property>dataSourceName</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>Name of the data source to create</description>
+                </parameter>
+            </parameters>
+        </mojo>
+        <mojo>
+            <goal>create-jdbc-resource</goal>
+            <call>create-jdbc-resource</call>
+            <description>Creates jdbc resource</description>
+            <parameters>
+                <parameter>
+                    <property>glassFishHome</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>GlassFish install directory</description>
+                </parameter>
+                <parameter>
+                    <property>domainPort</property>
+                    <required>true</required>
+                    <type>java.lang.Integer</type>
+                    <description>Domain port</description>
+                </parameter>
+                <parameter>
+                    <property>jdbcResourceName</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>Name of the jdbc resource to create</description>
+                </parameter>
+                <parameter>
+                    <property>dataSourceName</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>Name of the data source (pool) to map to jdbc resource</description>
+                </parameter>
+            </parameters>
+        </mojo>
+        <mojo>
+            <goal>start-database</goal>
+            <call>start-database</call>
+            <description>Starts database</description>
+            <parameters>
+                <parameter>
+                    <property>glassFishHome</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>GlassFish install directory</description>
+                </parameter>
+                <parameter>
+                    <property>domainPort</property>
+                    <required>true</required>
+                    <type>java.lang.Integer</type>
+                    <description>Domain port</description>
+                </parameter>
+            </parameters>
+        </mojo>
+        <mojo>
+            <goal>create-auth-realm</goal>
+            <call>create-auth-realm</call>
+            <description>Creates authentication realm</description>
+            <parameters>
+                <parameter>
+                    <property>glassFishHome</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>GlassFish install directory</description>
+                </parameter>
+                <parameter>
+                    <property>domainPort</property>
+                    <required>true</required>
+                    <type>java.lang.Integer</type>
+                    <description>Domain port</description>
+                </parameter>
+                <parameter>
+                    <property>usersTable</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>Table name with Users for authentication realm</description>
+                </parameter>
+                <parameter>
+                    <property>userNameColumn</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>Column name in Users table with user name</description>
+                </parameter>
+                <parameter>
+                    <property>userPasswordColumn</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>Column name in Users table with user password</description>
+                </parameter>
+                <parameter>
+                    <property>rolesTable</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>Table name with Roles for authentication realm</description>
+                </parameter>
+                <parameter>
+                    <property>roleColumn</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>Column name in Roles table with role</description>
+                </parameter>
+            </parameters>
+        </mojo>
+        <mojo>
+            <goal>deploy</goal>
+            <call>deploy</call>
+            <description>Deploys application</description>
+            <parameters>
+                <parameter>
+                    <property>glassFishHome</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>GlassFish install directory</description>
+                </parameter>
+                <parameter>
+                    <property>domainPort</property>
+                    <required>true</required>
+                    <type>java.lang.Integer</type>
+                    <description>Domain port</description>
+                </parameter>
+                <parameter>
+                    <property>artifactPath</property>
+                    <required>true</required>
+                    <readonly>true</readonly>
+                    <defaultValue>${project.build.directory}/${project.build.finalName}.${artifact.extension}</defaultValue>
+                    <type>java.lang.String</type>
+                    <description>Path of an artifact to be deployed</description>
+                </parameter>
+            </parameters>
+        </mojo>
+        
+        <mojo>
+            <goal>setup</goal>
+            <call>setup</call>
+            <description>Prepares application server for tutorial</description>
+            <parameters>
+                <parameter>
+                    <property>glassFishHome</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>GlassFish install directory</description>
+                </parameter>
+                <parameter>
+                    <property>domainName</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>Name of the domain</description>
+                </parameter>
+                <parameter>
+                    <property>domainUser</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>User name to access to domain</description>
+                </parameter>
+                <parameter>
+                    <property>domainPort</property>
+                    <required>true</required>
+                    <type>java.lang.Integer</type>
+                    <description>Domain port</description>
+                </parameter>
+                <parameter>
+                    <property>domainOrbPort</property>
+                    <required>true</required>
+                    <type>java.lang.Integer</type>
+                    <description>Domain orb port to use to access remote beans</description>
+                </parameter>                
+                <parameter>
+                    <property>usersTable</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>Table name with Users for authentication realm</description>
+                </parameter>
+                <parameter>
+                    <property>userNameColumn</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>Column name in Users table with user name</description>
+                </parameter>
+                <parameter>
+                    <property>userPasswordColumn</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>Column name in Users table with user password</description>
+                </parameter>
+                <parameter>
+                    <property>rolesTable</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>Table name with Roles for authentication realm</description>
+                </parameter>
+                <parameter>
+                    <property>roleColumn</property>
+                    <required>true</required>
+                    <type>java.lang.String</type>
+                    <description>Column name in Roles table with role</description>
+                </parameter>
+            </parameters>
+        </mojo>
+    </mojos>
+</pluginMetadata>

@@ -62,8 +62,8 @@ public class Checkout extends HttpServlet {
             Message.setErrorMessage(request, "Please adjust information in the marked fields below");
             Message.setErrorMessages(request, errorMessages);
 
-            // pass previously entered fields
-            // to allow user fix some of them
+            // pass back previously entered fields
+            // to allow user to fix some of them
             //
             request.setAttribute("creditCardNumber", creditCardNumber);
             request.setAttribute("billingAddress", billingAddress);

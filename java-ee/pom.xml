@@ -20,21 +20,8 @@
         <module>lesson32</module>
     </modules>
 
-    <!--
-    Mac OS X users have to
-    export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home"
-    -->
-
     <properties>
         <glassfish.home.path>${user.home}/glassfishv3</glassfish.home.path>
-        <glassfish.domain.user>practicaljava</glassfish.domain.user>
-        <glassfish.domain.name>practicaljava</glassfish.domain.name>
-        <glassfish.domain.path>${glassfish.home.path}/glassfish/domains/${glassfish.domain.name}</glassfish.domain.path>
-        <glassfish.domain.orbport>3720</glassfish.domain.orbport>
-        <glassfish.domain.port>5000</glassfish.domain.port>
-        <glassfish.asadmin.path>${glassfish.home.path}/bin/asadmin</glassfish.asadmin.path>
-
-        <create.domain.skip>false</create.domain.skip>
 
         <!--
         Default artifact extension.
@@ -67,11 +54,37 @@
                     <artifactId>dbunit-maven-plugin</artifactId>
                     <version>1.0-beta-3</version>
                 </plugin>
+
+                <plugin>
+                    <groupId>com.practicaljava.maven.plugin</groupId>
+                    <artifactId>gf-plugin</artifactId>
+                    <configuration>
+                        <glassFishHome>${glassfish.home.path}</glassFishHome>
+                        <domainName>practicaljava</domainName>
+                        <domainUser>practicaljava</domainUser>
+                        <domainPort>5000</domainPort>
+                        <domainOrbPort>3720</domainOrbPort>
+
+                        <dataSourceName>practicaljava-dbconnection-pool</dataSourceName>
+                        <jdbcResourceName>jdbc/practicaljava</jdbcResourceName>
+
+                        <usersTable>USERS</usersTable>
+                        <userNameColumn>ID</userNameColumn>
+                        <userPasswordColumn>PASSWORD</userPasswordColumn>
+                        <rolesTable>USER_ROLES</rolesTable>
+                        <roleColumn>ROLES</roleColumn>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
 
     <profiles>
+        <profile>
+            <id>glassfish</id>
+            <build>
+            </build>
+        </profile>
         <!--Turn on tests and bind them to integration-test phase-->
         <profile>
             <id>IT</id>
@@ -90,8 +103,8 @@
                                         <skip>false</skip>
 
                                         <!--<systemProperties>-->
-                                            <!--<name>org.omg.CORBA.ORBInitialPort</name>-->
-                                            <!--<value>"${domain.orbport}"</value>-->
+                                        <!--<name>org.omg.CORBA.ORBInitialPort</name>-->
+                                        <!--<value>"${domain.orbport}"</value>-->
                                         <!--</systemProperties>-->
                                     </configuration>
                                 </execution>
@@ -107,194 +120,6 @@
                     <artifactId>gf-client</artifactId>
                 </dependency>
             </dependencies>
-        </profile>
-
-        <profile>
-            <id>glassfish-server</id>
-            <activation>
-                <property>
-                    <name>server</name>
-                    <value>glassfish</value>
-                </property>
-            </activation>
-
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.codehaus.groovy.maven</groupId>
-                            <artifactId>gmaven-plugin</artifactId>
-                            <executions>
-                                <execution>
-                                    <id>check-glassfish-domain</id>
-                                    <phase>validate</phase>
-                                    <goals>
-                                        <goal>execute</goal>
-                                    </goals>
-                                    <configuration>
-                                        <source>
-                                            def domainPath = project.properties['glassfish.domain.path']
-                                            if (new File(domainPath).exists()) {
-                                                println "Domain $domainPath already exists. Creation will be skipped"
-                                                project.properties['create.domain.skip'] = 'true'
-                                            }
-                                        </source>
-                                    </configuration>
-                                </execution>
-                            </executions>
-                        </plugin>
-
-                        <plugin>
-                            <groupId>org.codehaus.mojo</groupId>
-                            <artifactId>exec-maven-plugin</artifactId>
-                            <executions>
-                                <execution>
-                                    <id>glassfish-domain-create</id>
-                                    <phase>pre-integration-test</phase>
-                                    <goals>
-                                        <goal>exec</goal>
-                                    </goals>
-                                    <configuration>
-                                        <executable>${glassfish.asadmin.path}</executable>
-                                        <arguments>
-                                            <argument>--echo</argument>
-                                            <argument>--port</argument>
-                                            <argument>${glassfish.domain.port}</argument>
-                                            <argument>--user</argument>
-                                            <argument>${glassfish.domain.user}</argument>                                                                                        
-                                            <argument>create-domain</argument>
-                                            <argument>--nopassword</argument>
-                                            <argument>--adminport</argument>
-                                            <argument>${glassfish.domain.port}</argument>
-                                            <argument>--domainproperties</argument>
-                                            <argument>orb.listener.port=${glassfish.domain.orbport}</argument>
-                                            <argument>${glassfish.domain.name}</argument>
-                                        </arguments>
-                                        <skip>${create.domain.skip}</skip>
-                                    </configuration>
-                                </execution>
-                                <execution>
-                                    <id>glassfish-start-domain</id>
-                                    <phase>pre-integration-test</phase>
-                                    <goals>
-                                        <goal>exec</goal>
-                                    </goals>
-                                    <configuration>
-                                        <successCodes>
-                                            <!--if domain already started this is fine-->
-                                            <successCode>0</successCode>
-                                            <successCode>1</successCode>
-                                        </successCodes>
-                                        <executable>${glassfish.asadmin.path}</executable>
-                                        <arguments>
-                                            <argument>--echo</argument>
-                                            <argument>--port</argument>
-                                            <argument>${glassfish.domain.port}</argument>
-                                            <argument>--user</argument>
-                                            <argument>${glassfish.domain.user}</argument>
-                                            <argument>start-domain</argument>
-                                            <argument>${glassfish.domain.name}</argument>
-                                        </arguments>
-                                    </configuration>
-                                </execution>
-                                <execution>
-                                    <id>glassfish-create-datasource</id>
-                                    <phase>pre-integration-test</phase>
-                                    <goals>
-                                        <goal>exec</goal>
-                                    </goals>
-                                    <configuration>
-                                        <executable>${glassfish.asadmin.path}</executable>
-                                        <commandlineArgs>--echo --port ${glassfish.domain.port} create-jdbc-connection-pool --datasourceclassname org.apache.derby.jdbc.ClientDataSource --restype javax.sql.DataSource --property portNumber=1527:password=APP:user=APP:serverName=localhost:databaseName=practicaljava:connectionAttributes=\;create\\=true practicaljava-pool</commandlineArgs>
-                                        <skip>${create.domain.skip}</skip>
-                                    </configuration>
-                                </execution>
-                                <execution>
-                                    <id>glassfish-create-datasource-resource</id>
-                                    <phase>pre-integration-test</phase>
-                                    <goals>
-                                        <goal>exec</goal>
-                                    </goals>
-                                    <configuration>
-                                        <executable>${glassfish.asadmin.path}</executable>
-                                        <arguments>
-                                            <argument>--echo</argument>
-                                            <argument>--port</argument>
-                                            <argument>${glassfish.domain.port}</argument>
-                                            <argument>create-jdbc-resource</argument>
-                                            <argument>--connectionpoolid</argument>
-                                            <argument>practicaljava-pool</argument>
-                                            <argument>jdbc/practicaljava</argument>
-                                        </arguments>
-                                        <skip>${create.domain.skip}</skip>
-                                    </configuration>
-                                </execution>
-
-                                <!--
-                                Create authentication realm
-
-                                http://docs.sun.com/app/docs/doc/819-3658/ablpc?a=view
-                                http://docs.sun.com/app/docs/doc/820-4497/create-auth-realm-1?l=ru&a=view
-                                -->
-                                <execution>
-                                    <id>glassfish-create-jdbc-realm</id>
-                                    <phase>pre-integration-test</phase>
-                                    <goals>
-                                        <goal>exec</goal>
-                                    </goals>
-                                    <configuration>
-                                        <executable>${glassfish.asadmin.path}</executable>
-                                        <arguments>
-                                            <argument>--echo</argument>
-                                            <argument>--port</argument>
-                                            <argument>${glassfish.domain.port}</argument>
-                                            <argument>create-auth-realm</argument>
-                                            <argument>--classname</argument>
-                                            <argument>com.sun.enterprise.security.auth.realm.jdbc.JDBCRealm</argument>
-                                            <argument>--property</argument>
-                                            <argument>datasource-jndi=jdbc/practicaljava:user-table=USERS:user-name-column=ID:password-column=PASSWORD:group-table=USER_ROLES:group-name-column=ROLES:jaas-context=jdbcRealm:digest-algorithm=none:assign-groups=USER,ADMIN</argument>
-                                            <argument>databaseRealm</argument>
-                                        </arguments>
-                                        <skip>${create.domain.skip}</skip>
-                                    </configuration>
-                                </execution>
-                                <execution>
-                                    <id>glassfish-start-database</id>
-                                    <phase>pre-integration-test</phase>
-                                    <goals>
-                                        <goal>exec</goal>
-                                    </goals>
-                                    <configuration>
-                                        <executable>${glassfish.asadmin.path}</executable>
-                                        <arguments>
-                                            <argument>--echo</argument>
-                                            <argument>start-database</argument>
-                                        </arguments>
-                                    </configuration>
-                                </execution>
-                                <execution>
-                                    <id>glassfish-deploy</id>
-                                    <phase>pre-integration-test</phase>
-                                    <goals>
-                                        <goal>exec</goal>
-                                    </goals>
-                                    <configuration>
-                                        <executable>${glassfish.asadmin.path}</executable>
-                                        <arguments>
-                                            <argument>--echo</argument>
-                                            <argument>--port</argument>
-                                            <argument>${glassfish.domain.port}</argument>
-                                            <argument>deploy</argument>
-                                            <argument>--force</argument>
-                                            <argument>${project.build.directory}/${build.finalName}.${artifact.extension}</argument>
-                                        </arguments>
-                                    </configuration>
-                                </execution>
-                            </executions>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-            </build>
         </profile>
 
         <!--Use GLASSFISH_HOME property if set to specify GlassFish server home location-->
