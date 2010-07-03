@@ -2,11 +2,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <artifactId>examples</artifactId>
+        <groupId>com.practicaljava</groupId>
+        <version>1.0</version>
+    </parent>    
+    
     <groupId>com.practicaljava.maven.plugin</groupId>
     <artifactId>maven-plugins</artifactId>
+    
     <packaging>pom</packaging>
-    <version>1.0</version>
-
     <name>Practical Java Maven plugins</name>
 
     <modules>
