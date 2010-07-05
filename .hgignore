@@ -6,3 +6,6 @@ syntax: glob
 target/*
 .idea
 .DS_Store
+.classpath
+.project
+.settings
