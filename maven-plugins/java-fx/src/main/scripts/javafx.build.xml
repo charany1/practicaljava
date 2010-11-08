@@ -1,0 +1,33 @@
+<!--
+Please refer to
+    http://maven.apache.org/guides/plugin/guide-ant-plugin-development.html
+    http://jfx.wikia.com/wiki/Ant_task
+for technical details
+-->
+<project>
+    <property name="javafxc.home" value="/Library/JavaFx/Home/lib/shared"/>
+    <property name="javafxc.class.path"
+              value="${javafxc.home}/javafxc.jar:${javafxc.home}/javafxrt.jar:${javafxc.home}/javaf.jar"/>
+    
+    <taskdef classname="com.sun.tools.javafx.ant.JavaFxAntTask" classpath="${javafxc.class.path}" name="javafxc"/>
+
+    <path id="javafx.classpath">
+        <fileset dir="/Library/JavaFx/Home/lib/">
+            <include name="**/*.jar" />
+        </fileset>
+    </path>
+
+    <target name="compile">
+        <echo>Compiling java fx sources</echo>
+
+        <mkdir dir="target/classes"/>
+
+        <property name="maven-classpath" refid="maven.dependency.classpath"/>
+        <echo message="Maven classpath = ${maven-classpath}"/>
+
+        <javafxc srcdir="src/main/javafx" destdir="target/classes" includes="**/*.fx" compilerclasspath="${javafxc.class.path}">
+            <classpath refid="javafx.classpath"/>
+            <classpath refid="maven.dependency.classpath"/>
+        </javafxc>
+    </target>
+</project>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.practicaljava</groupId>
+        <artifactId>lesson30</artifactId>
+        <version>1.0</version>
+    </parent>
+
+    <artifactId>lesson30-jms-demo</artifactId>
+
+    <packaging>war</packaging>
+    <name>Lesson 30: JMS Demo</name>
+
+    <properties>
+        <artifact.extension>war</artifact.extension>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>jms-demo</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-javafx-ui</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.practicaljava</groupId>
+                                    <artifactId>lesson30-javafx-ui</artifactId>
+                                    <version>1.0</version>
+                                    <type>jar</type>
+                                    <classifier>jar-with-dependencies</classifier>
+                                    <overWrite>true</overWrite>
+                                    <destFileName>javafx-ui.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <artifactItems/>
+                    <outputDirectory>${project.build.directory}/${project.build.finalName}/javafx</outputDirectory>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jarsigner-plugin</artifactId>
+                <version>1.2</version>
+                <executions>
+                    <execution>
+                        <id>sign-jar</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                        <configuration>
+                            <archive>${project.build.directory}/${project.build.finalName}/javafx/javafx-ui.jar</archive>
+                            <keystore>pjstore</keystore>
+                            <alias>signFiles</alias>
+                            <storepass>storepass</storepass>
+                            <keypass>keypass</keypass>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+        </plugins>
+    </build>
+</project>
