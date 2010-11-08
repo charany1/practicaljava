@@ -1,4 +1,6 @@
 syntax: glob
+*.ipr
+*.iws
 *.iml
 *.jar
 *.swp

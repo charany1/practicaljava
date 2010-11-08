@@ -17,6 +17,7 @@
 
     <modules>
         <module>lesson29</module>
+        <module>lesson30</module>
         <module>lesson32</module>
     </modules>
 
@@ -75,6 +76,12 @@
                         <rolesTable>USER_ROLES</rolesTable>
                         <roleColumn>ROLES</roleColumn>
                     </configuration>
+                </plugin>
+
+                <!--stable version of this plugin has a serious bug - it places some classes twice within one jar-->
+                <plugin>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>2.2-beta-5</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -141,6 +148,12 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>javax</groupId>
+                <artifactId>javaee-api</artifactId>
+                <version>6.0</version>
+            </dependency>
+
+            <dependency>
                 <groupId>glassfish</groupId>
                 <artifactId>javaee</artifactId>
                 <version>6.0</version>
@@ -153,13 +166,25 @@
                 <artifactId>derbyclient</artifactId>
                 <version>10.5.3.0_1</version>
             </dependency>
-            
+
             <dependency>
                 <groupId>gf-client</groupId>
                 <artifactId>gf-client</artifactId>
                 <version>3.0</version>
                 <scope>system</scope>
                 <systemPath>${glassfish.home.path}/glassfish/modules/gf-client.jar</systemPath>
+            </dependency>
+
+            <dependency>
+                <groupId>com.sun.messaging.mq</groupId>
+                <artifactId>imq</artifactId>
+                <version>4.4.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.geronimo.specs</groupId>
+                <artifactId>geronimo-jms_1.1_spec</artifactId>
+                <version>1.1.1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

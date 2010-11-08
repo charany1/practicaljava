@@ -16,6 +16,7 @@
 
     <modules>
         <module>glass-fish</module>
+        <module>java-fx</module>
     </modules>
 
     <dependencyManagement>

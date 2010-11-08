@@ -1,0 +1,16 @@
+<!--
+Please refer to
+    http://maven.apache.org/guides/plugin/guide-ant-plugin-development.html
+for technical details
+-->
+<pluginMetadata>
+    <mojos>
+        <mojo>
+            <goal>compile</goal>
+            <call>compile</call>
+            <description>Compiles JavaFx sources</description>
+            <parameters>
+            </parameters>
+        </mojo>
+    </mojos>
+</pluginMetadata>
