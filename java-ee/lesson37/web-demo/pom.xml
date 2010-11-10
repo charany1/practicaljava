@@ -6,14 +6,14 @@
 
     <parent>
         <groupId>com.practicaljava</groupId>
-        <artifactId>lesson30</artifactId>
+        <artifactId>lesson37</artifactId>
         <version>1.0</version>
     </parent>
 
-    <artifactId>lesson30-jms-demo</artifactId>
+    <artifactId>lesson37-web-demo</artifactId>
 
     <packaging>war</packaging>
-    <name>Lesson 30: JMS Demo</name>
+    <name>Lesson 37: WEB Demo</name>
 
     <properties>
         <artifact.extension>war</artifact.extension>
@@ -28,7 +28,7 @@
     </dependencies>
 
     <build>
-        <finalName>jms-demo</finalName>
+        <finalName>javafx-web-demo</finalName>
 
         <plugins>
             <plugin>
@@ -45,7 +45,7 @@
                             <artifactItems>
                                 <artifactItem>
                                     <groupId>com.practicaljava</groupId>
-                                    <artifactId>lesson30-javafx-ui</artifactId>
+                                    <artifactId>lesson37-javafx-ui</artifactId>
                                     <version>1.0</version>
                                     <type>jar</type>
                                     <classifier>jar-with-dependencies</classifier>
