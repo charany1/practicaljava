@@ -10,13 +10,13 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>lesson30</artifactId>
+    <artifactId>lesson37</artifactId>
 
     <packaging>pom</packaging>
-    <name>Lesson 30: JMS</name>
+    <name>Lesson 37: Java FX</name>
 
     <modules>
         <module>javafx-ui</module>
-        <module>jms-demo</module>
+        <module>web-demo</module>
     </modules>
 </project>

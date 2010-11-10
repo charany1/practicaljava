@@ -6,14 +6,14 @@
 
     <parent>
         <groupId>com.practicaljava</groupId>
-        <artifactId>lesson30</artifactId>
+        <artifactId>lesson37</artifactId>
         <version>1.0</version>
     </parent>
 
-    <artifactId>lesson30-javafx-ui</artifactId>
+    <artifactId>lesson37-javafx-ui</artifactId>
 
     <packaging>jar</packaging>
-    <name>Lesson 30: JavaFX UI</name>
+    <name>Lesson 37: Java FX UI</name>
 
     <dependencies>
         <dependency>
