@@ -1,4 +1,4 @@
-package com.practicaljava.lesson30.jms;
+package com.practicaljava.lesson37.jms;
 
 import com.sun.messaging.ConnectionConfiguration;
 import com.sun.messaging.ConnectionFactory;

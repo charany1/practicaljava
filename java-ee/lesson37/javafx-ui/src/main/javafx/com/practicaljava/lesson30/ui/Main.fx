@@ -1,4 +1,4 @@
-package com.practicaljava.lesson30.ui;
+package com.practicaljava.lesson37.ui;
 
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -19,8 +19,8 @@ import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
-import com.practicaljava.lesson30.jms.Messages;
-import com.practicaljava.lesson30.jms.MessageHandler;
+import com.practicaljava.lesson37.jms.Messages;
+import com.practicaljava.lesson37.jms.MessageHandler;
 
 class JavaFXMessageHandler extends MessageHandler {
     override public function handle(message:String):Void {
