@@ -1,0 +1,59 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:message="urn:jsptagdir:/WEB-INF/tags/message"
+      xmlns:jsp="http://java.sun.com/JSP/Page"
+      xmlns:store="urn:jsptagdir:/WEB-INF/tags/store"
+      xmlns:ui="urn:jsptagdir:/WEB-INF/tags/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<body>
+<store:page panelBody="" pageTitle="Checkout">
+    <jsp:useBean id="cart" scope="session" type="com.practicaljava.onlinestore.model.Cart"/>
+
+    <ui:title>Your cart</ui:title>
+
+    <!--
+    We can perfrom simple calculation using expression language
+    -->
+    <c:set var="totalPrice">0</c:set>
+    <c:forEach var="item" items="${cart.items}" varStatus="loop">
+        <c:set var="itemTotalPrice">${item.value * item.key.priceInPoints}</c:set>
+        <c:set var="totalPrice">${itemTotalPrice + totalPrice}</c:set>
+        <p>${item.key.name}: ${item.value} (${itemTotalPrice})</p>
+    </c:forEach>
+
+    <p>Total price: ${totalPrice}</p>
+    
+    <ui:title>Checkout</ui:title>
+
+    <message:error/>
+    
+    <form action="checkout" method="post" class="form-panel">
+        <fieldset>
+            <ol>
+                <li>
+                    <label for="creditCardNumber">Credit card number</label>
+                    <input id="creditCardNumber" name="creditCardNumber" maxlength="100" value="${creditCardNumber}"/>
+                    <message:error id="creditCardNumber"/>
+                </li>
+                <li>
+                    <label for="secretCardCode">Secret card code</label>
+                    <input id="secretCardCode" type="password" name="secretCardCode" maxlength="3" value="${secretCardCode}"/>
+                    <message:error id="secretCardCode"/>
+                </li>
+                <li>
+                    <label for="billingAddress">Billing address</label>
+                    <textarea id="billingAddress" rows="5" cols="50" name="billingAddress">${billingAddress}</textarea>
+                    <message:error id="billingAddress"/>
+                </li>
+                <li>
+                    <ui:submitButton value="Submit"/>
+                </li>
+            </ol>
+        </fieldset>
+    </form>
+    <p>
+        <ui:button url="items">Back</ui:button> to store
+    </p>
+</store:page>
+
+</body>
+</html>

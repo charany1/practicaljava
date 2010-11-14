@@ -16,10 +16,10 @@
     <name>Practical Java. Java EE Examples</name>
 
     <modules>
-        <module>lesson29</module>
         <module>lesson32</module>
         <module>lesson37</module>
         <module>rest</module>
+        <module>online-store</module>
     </modules>
 
     <properties>
