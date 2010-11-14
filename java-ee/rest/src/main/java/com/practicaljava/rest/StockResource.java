@@ -17,12 +17,6 @@ public class StockResource {
     @Path("{symbol}")
     @GET
     public Stock getStock(@PathParam("symbol") String symbol) {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
         Stock stock = StockService.getStock(symbol);
 
         if (stock == null) {

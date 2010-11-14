@@ -75,16 +75,17 @@
     $('#add-stock-flash-message').hide();
 
     $("#get-stock").submit(function() {
-        $('.result').fadeOut(1000);
-
         $.getJSON('resources/stock/' + $("#get-stock-symbol").val(), function(data) {
 
-            $('#symbol').html(data.symbol);
-            $('#price').html(data.price);
-            $('#currency').html(data.currency);
-            $('#country').html(data.country);
+            $('.result').fadeOut(500, function(){
+                $('#symbol').html(data.symbol);
+                $('#price').html(data.price);
+                $('#currency').html(data.currency);
+                $('#country').html(data.country);
 
-            $('.result').fadeIn(500)
+
+                $('.result').fadeIn(500)
+            });
         });
 
         return false;
