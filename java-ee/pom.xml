@@ -19,6 +19,7 @@
         <module>lesson29</module>
         <module>lesson32</module>
         <module>lesson37</module>
+        <module>rest</module>
     </modules>
 
     <properties>
