@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Rest + JSON</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
+
+    <script src="http://code.jquery.com/jquery-1.4.4.js">
+    </script>
+</head>
+
+<body>
+
+<p class="title">Find Stock</p>
+
+<form id="get-stock" action="javascript:alert('submit')">
+    <input id="get-stock-symbol" type="text"/>
+    <input class="button" type="submit" value="Find"/>
+</form>
+
+<div class="result">
+<table>
+    <tr>
+        <td>Symbol</td>
+        <td id="symbol"></td>
+    </tr>
+    <tr>
+        <td>Price</td>
+        <td id="price"></td>
+    </tr>
+    <tr>
+        <td>Currency</td>
+        <td id="currency"></td>
+    </tr>
+    <tr>
+        <td>Country</td>
+        <td id="country"></td>
+    </tr>
+</table>
+</div>
+
+<p class="title">Add new Stock</p>
+
+<div id="add-stock-flash-message" class="flash-message">
+</div>
+
+<form id="add-stock" action="javascript:alert('submit')">
+    <fieldset>
+        <ol>
+            <li>
+                <label for="add-stock-symbol">Symbol</label>
+                <input id="add-stock-symbol" name="symbol" type="text"/>
+            </li>
+            <li>
+                <label for="add-stock-currency">Currency</label>
+                <input id="add-stock-currency" name="currency" type="text"/>
+            </li>
+            <li>
+                <label for="add-stock-price">Price</label>
+                <input id="add-stock-price" name="price" type="text"/>
+            </li>
+            <li>
+                <label for="add-stock-country">Country</label>
+                <input id="add-stock-country" name="country" type="text"/>
+            </li>
+            <li>
+                <input class="button" type="submit" value="Add"/>
+            </li>
+        </ol>
+    </fieldset>
+</form>
+
+<script>
+    $('.result').hide();
+    $('#add-stock-flash-message').hide();
+
+    $("#get-stock").submit(function() {
+        $('.result').fadeOut(1000);
+
+        $.getJSON('resources/stock/' + $("#get-stock-symbol").val(), function(data) {
+
+            $('#symbol').html(data.symbol);
+            $('#price').html(data.price);
+            $('#currency').html(data.currency);
+            $('#country').html(data.country);
+
+            $('.result').fadeIn(500)
+        });
+
+        return false;
+    });
+
+    $("#add-stock").submit(function() {
+
+        $.ajax({
+            type: "POST",
+            url: 'resources/stock',
+            data: $("#add-stock").serialize(),
+            success: function() {
+                $("#add-stock-flash-message").show().html("Stock was added").fadeOut(5000);
+            },
+            error: function(request, error) {
+                if (error == 'error') {
+                    $("#add-stock-flash-message").show().html("Stock already exist").fadeOut(5000);
+                }
+                else {
+                    $("#add-stock-flash-message").show().html("Server error").fadeOut(5000);
+                }
+            }
+        });
+
+        return false;
+    });
+</script>
+
+</body>
+
+</html>
