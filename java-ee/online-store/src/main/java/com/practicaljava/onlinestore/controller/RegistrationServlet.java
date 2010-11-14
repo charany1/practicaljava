@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @WebServlet("/registration")
-public class Registration extends HttpServlet {
+public class RegistrationServlet extends HttpServlet {
 
     @EJB
     private UserService userService;
