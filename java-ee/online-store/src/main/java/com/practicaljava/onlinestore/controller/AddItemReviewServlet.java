@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/addReview")
-public class AddItemReview extends HttpServlet {
+public class AddItemReviewServlet extends HttpServlet {
 
     @EJB
     private UserService userService;

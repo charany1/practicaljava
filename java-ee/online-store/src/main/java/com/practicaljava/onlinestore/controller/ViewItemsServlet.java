@@ -1,7 +1,6 @@
 package com.practicaljava.onlinestore.controller;
 
-import com.practicaljava.onlinestore.Message;
-import com.practicaljava.onlinestore.service.UserService;
+import com.practicaljava.onlinestore.service.ItemService;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -11,18 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/login")
-public class Login extends HttpServlet {
+@WebServlet("/items")
+public class ViewItemsServlet extends HttpServlet {
 
     @EJB
-    private UserService userService;
+    private ItemService itemService;
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException,
                                                                                           ServletException {
 
-        if (request.getParameter("error") != null)
-            Message.setErrorMessage(request, "Wrong Credentials");
-        
-        request.getRequestDispatcher("/view/login.jspx").forward(request, response);
+        request.setAttribute("items", itemService.listItems());
+
+        request.getRequestDispatcher("/view/items.jspx").forward(request, response);
     }
 }

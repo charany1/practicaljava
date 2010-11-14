@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/newItem")
-public class AddItemToStore extends HttpServlet {
+public class AddItemToStoreServlet extends HttpServlet {
 
     @EJB
     private ItemService itemService;
