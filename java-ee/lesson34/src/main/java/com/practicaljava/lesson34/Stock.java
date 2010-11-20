@@ -1,4 +1,4 @@
-package com.practicaljava.rest;
+package com.practicaljava.lesson34;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

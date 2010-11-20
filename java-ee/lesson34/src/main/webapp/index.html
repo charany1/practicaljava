@@ -97,12 +97,14 @@
             type: "POST",
             url: 'resources/stock',
             data: $("#add-stock").serialize(),
+
             success: function() {
                 $("#add-stock-flash-message").show().html("Stock was added").fadeOut(5000);
             },
-            error: function(request, error) {
-                if (error == 'error') {
-                    $("#add-stock-flash-message").show().html("Stock already exist").fadeOut(5000);
+
+            error: function(request, textStatus, errorThrown) {
+                if (textStatus == 'error') {
+                    $("#add-stock-flash-message").show().html(request.responseText).fadeOut(5000);
                 }
                 else {
                     $("#add-stock-flash-message").show().html("Server error").fadeOut(5000);

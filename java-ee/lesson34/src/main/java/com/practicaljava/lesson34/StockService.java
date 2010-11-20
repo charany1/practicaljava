@@ -1,4 +1,4 @@
-package com.practicaljava.rest;
+package com.practicaljava.lesson34;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,5 +26,4 @@ public class StockService {
         addStock(new Stock("IBM", 43.12, "USD", "US"));
         addStock(new Stock("APPL", 320.0, "USD", "US"));
      }
-
 }
